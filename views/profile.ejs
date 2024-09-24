@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-zinc-900 text-white font-sans">
+    <!-- Main Container -->
+    <div class="max-w-7xl mx-auto p-10 min-h-screen">
+      <!-- Logout Button -->
+      <div class="flex justify-end">
+        <a
+          class="bg-red-500 hover:bg-red-600 transition-all ease-in-out rounded-md text-sm mb-5 inline-block py-2 px-4 shadow-lg"
+          href="/logout"
+          >Logout</a
+        >
+      </div>
+
+      <!-- Welcome Message -->
+      <h3 class="text-3xl mb-3">
+        <span class="text-red-300 font-semibold">Hello</span>, <%= user.name %>
+      </h3>
+      <h5 class="mb-6 text-zinc-400 text-lg">You can create a new post.</h5>
+
+      <!-- New Post Form -->
+      <form action="/post" method="post" class="mb-10">
+        <textarea
+          placeholder="What's on your mind?"
+          class="p-3 outline-none w-2/3 resize-none bg-transparent border-2 border-zinc-800 rounded-md focus:border-blue-500 transition-all ease-in-out shadow-md"
+          name="content"
+          rows="4"
+        ></textarea>
+        <input
+          type="submit"
+          value="Create New Post"
+          class="px-4 py-2 bg-blue-500 hover:bg-blue-600 transition-all ease-in-out rounded-md mt-3 w-40 text-sm shadow-lg cursor-pointer block"
+        />
+      </form>
+
+      <!-- User Posts Section -->
+      <div class="posts mt-12">
+        <h3 class="text-xl font-semibold text-zinc-400 mb-6">Your Posts</h3>
+
+        <div
+          class="postcontainer grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        >
+          <% user.posts.reverse().forEach(function(post){ %>
+          <div
+            class="post bg-zinc-800 p-6 rounded-md border border-zinc-700 shadow-lg hover:shadow-xl transition-all ease-in-out transform hover:-translate-y-1"
+          >
+            <h4 class="text-blue-400 mb-3 text-lg font-bold">
+              @<%= user.username %>
+            </h4>
+            <p
+              class="text-sm text-gray-200 mb-4 tracking-tight leading-relaxed"
+            >
+              <%= post.content %>
+            </p>
+            <div class="btns flex gap-6">
+              <a class="text-blue-500 hover:underline" href="">Like</a>
+              <a
+                class="text-zinc-400 hover:text-white transition-colors ease-in-out"
+                href=""
+                >Edit</a
+              >
+            </div>
+          </div>
+          <% }) %>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
